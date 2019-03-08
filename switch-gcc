@@ -1,0 +1,31 @@
+#!/bin/bash
+
+Usage() 
+{
+        echo 
+        echo Sets the default version for gcc, cpp, g++, c++, etc
+        echo Usage:
+        echo 
+        echo "    switch-gcc <VERSION>"
+        echo 
+        exit
+}
+
+cd /usr/bin
+if [ -z $1 ] ; then 
+        Usage;
+fi 
+
+SetDefaultVersion() 
+{
+        if [ -e "$1-$2" ] ; then
+                sudo ln -sf $1-$2 $1
+                echo $1-$2 is now the default
+        else 
+                echo $1-$2 is not installed
+        fi
+}
+
+for i in gcc cpp g++ gcov gccbug c++; do 
+        SetDefaultVersion $i $1
+done
